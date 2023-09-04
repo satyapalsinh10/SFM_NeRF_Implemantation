@@ -7,14 +7,11 @@ This repository contains the implementation of the Structure from Motion (SfM) a
 
 The implementation of SFM and NeRF is in two phases:
 
-**Phase 1: Structure from Motion (SfM):** This phase involves reconstructing a 3D scene and obtaining poses of the monocular camera using classical SfM techniques. The main steps include feature matching, estimating the fundamental matrix, essential matrix, camera pose, triangulation, and bundle adjustment.
-
-**Phase 2: Neural Radiance Fields (NeRF):** This phase focuses on implementing the NeRF algorithm, allowing us to synthesize novel views of 3D scenes using deep learning. NeRF represents a scene as a continuous volumetric function and can generate photorealistic views.
-
-
 ## Phase 1 - Classical Structure from Motion (SfM) Pipeline : 
 
-The classical structure from motion (SfM) pipeline is implemented in phase1 using the below steps:
+This phase involves reconstructing a 3D scene and obtaining poses of the monocular camera using classical SfM techniques. The main steps include feature matching, estimating the fundamental matrix, essential matrix, camera pose, triangulation, and bundle adjustment.
+
+The classical structure from motion (SfM) pipeline is implemented using the below steps:
 
 * ``` Feature_matching:``` Extract SIFT features and match across images
 * ``` Fundamental_matrix:``` Estimate fundamental matrix with RANSAC outlier rejection
@@ -41,7 +38,7 @@ The data folder contains 4 matching files named matching*.txt where * refers to 
 <br>
 
 ### Outlier Rejectiong - RANSAC (using Fundamental matrix)
-<img src="Phase1/Data/IntermediateOutputImages/matching_Inliers.jpeg"  align="center" alt="Undistorted" width="700"/>
+<img src="Phase1/Data/IntermediateOutputImages/matching_Inliers.jpeg"  align="center" alt="Undistorted" width="600"/>
 
 ### Cheirality check
 <img src="Phase1/Data/IntermediateOutputImages/Initial triangulation plot with disambiguity, showing all four possible camera poses.jpeg"  align="center" alt="Undistorted" width="500"/>
@@ -62,15 +59,17 @@ python3 Wrapper.py
 
 #### Outputs:
 
-1. All Intermediate Images Output are saved in Phase1-> Data-> IntermideateOutputs
+I have provided detailed re-projection error analysis, including tables and images, after each step of the SfM pipeline in the report. This includes results for linear and non-linear triangulation, linear and non-linear PnP before and after bundle adjustment, and more.
 
 #### Input and Output Data
 
-1. You can change the savepath loacation and Data path in Arg-Parser
+1. The save path location and Data path can be changed in Arg-Parser
 
+<br>
 
-## Phase 2 - NeRF:
-Implementing the original NERF method [from this paper](https://arxiv.org/abs/2003.08934).
+## Phase 2 - Neural Radiance Fields (NeRF):
+
+This phase focuses on implementing the NeRF algorithm, allowing us to synthesize novel views of 3D scenes using deep learning. NeRF represents a scene as a continuous volumetric function and can generate photorealistic views. Implementation is of the original NERF method [from this paper](https://arxiv.org/abs/2003.08934).
 
 ### Input:
 Download the lego data for NeRF from the original author’s link [here](https://drive.google.com/drive/folders/1lrDkQanWtTznf48FCaW5lX9ToRdNDF1a)
@@ -79,39 +78,37 @@ Download the lego data for NeRF from the original author’s link [here](https:/
 
 <img src="Phase2/Results/input.png"  align="center" alt="Undistorted" width="500"/>
 
-### Neural Network used
-<img src="Phase2/Results/Network.png"  align="center" alt="Undistorted" width="300"/>
-
 ### Training
-<img src="Phase2/Results/loss.png"  align="center" alt="Undistorted" width="400"/>
+<img src="Phase2/Results/loss.png"  align="center" alt="Undistorted" width="500"/>
 
-### Result on Test set
+### Test Result
 <img src="Phase2/Results/ezgif.com-gif-maker (4).gif"  align="center" alt="Undistorted" width="500"/>
 
 ### Usage Guidelines:
 
 #### Training:
-1. Change the directory to Phase 2.
-2. To train the NeRF model on GPU:
+1. Switch to the Phase 2 directory.
+2. Train the NeRF model on GPU by executing the below code:
 
 ```
 python3 NeRF_train.py
 ```
-3. Output of Loss plot will be saved in Results folder.
+3. The final Loss plot is saved in the Results folder.
 
 #### Testing
-1. Change the directory to Phase 2.
-2. To test the model:
+1. Switch to the Phase 2 directory.
+2. Test the NeRF model by executing the below code:
 
 ```
 python3 NeRF_test.py
 ```
-3. Output video will be saved in the same directory.
+3. The final video is saved in the same directory.
 
 
 ## References:
-1. https://rbe549.github.io/fall2022/proj/p3/
-2. https://arxiv.org/abs/2003.08934
+
+1. https://arxiv.org/abs/2003.08934
+2. https://rbe549.github.io/fall2022/proj/p3/
 
 
 
