@@ -1,25 +1,30 @@
-# Building built in minutes- SfM and NeRF
-
-Phase 1: Reconstructed a 3D scene and simultaneously obtained the camera poses of a monocular camera from a set of images
-with different view points using feature point correspondences (classical CV).
-
-Phase 2: Used Neural Radiance fields (NeRF) to synthesize novel views of complex scenes by optimizing a continuous
-volumetric scene function using a sparse set of input views (Deep Learning)
+# Structure from Motion (SfM) and Neural Radiance Fields (NeRF)
 
 
+This repository contains the implementation of the Structure from Motion (SfM) and Neural Radiance Fields (NeRF) projects.
 
-## Phase 1 - Structure from Motion:
+## Project Overview:
 
-There are a few steps that collectively form SfM:
+The implementation of SFM and NeRF is in two phases:
 
-* Feature Matching and Outlier rejection using RANSAC
-* Estimating Fundamental Matrix
-* Estimating Essential Matrix from Fundamental Matrix
-* Estimate Camera Pose from Essential Matrix
-* Check for Cheirality Condition using Triangulation
-* Perspective-n-Point
-* Bundle Adjustment
+**Phase 1: Structure from Motion (SfM):** This phase involves reconstructing a 3D scene and obtaining poses of the monocular camera using classical SfM techniques. The main steps include feature matching, estimating the fundamental matrix, essential matrix, camera pose, triangulation, and bundle adjustment.
 
+**Phase 2: Neural Radiance Fields (NeRF):** This phase focuses on implementing the NeRF algorithm, allowing us to synthesize novel views of 3D scenes using deep learning. NeRF represents a scene as a continuous volumetric function and can generate photorealistic views.
+
+
+## Phase 1 - Classical Structure from Motion (SfM) Pipeline : 
+
+The classical structure from motion (SfM) pipeline is implemented in phase1 using the below steps:
+
+* ``` Feature_matching:``` Extract SIFT features and match across images
+* ``` Fundamental_matrix:``` Estimate fundamental matrix with RANSAC outlier rejection
+* ``` Essential_matrix:``` Compute essential matrix from fundamental matrix
+* ``` Camera_pose:``` Extract relative camera pose from the essential matrix
+* ``` Triangulation:``` Linear and nonlinear triangulation of 3D points
+* ``` pnp:``` Perspective-n-Point camera pose estimation
+* ``` Bundle_adjustment:``` Bundle adjustment to refine camera poses and 3D points
+* ``` Visiblity_matrix:``` Construct visibility matrix between cameras and points
+* ``` wrapper.py:``` Main script to run the entire SfM pipeline
 
 ### Input:
 The data given to us is a set of 5 images of Unity Hall at WPI, using a Samsung S22 Ultra’s primary camera at f/1.8 aperture, ISO 50 and 1/500 sec shutter speed.
@@ -28,11 +33,15 @@ The data given to us is a set of 5 images of Unity Hall at WPI, using a Samsung 
 
 The data folder contains 4 matching files named matching*.txt where * refers to numbers from 1 to 5. For eg., matching3.txt contains the matching between the third image and images that come after, i.e., I3↔I4,I3↔I5. This is the reason image 5 does not have a text file.
 
+<br>
+
 ### Initial Feature matching
 <img src="Phase1/Data/IntermediateOutputImages/feature_matching.png"  align="center" alt="Undistorted" width="500"/>
 
+<br>
+
 ### Outlier Rejectiong - RANSAC (using Fundamental matrix)
-<img src="Phase1/Data/IntermediateOutputImages/matching_Inliers.jpeg"  align="center" alt="Undistorted" width="500"/>
+<img src="Phase1/Data/IntermediateOutputImages/matching_Inliers.jpeg"  align="center" alt="Undistorted" width="700"/>
 
 ### Cheirality check
 <img src="Phase1/Data/IntermediateOutputImages/Initial triangulation plot with disambiguity, showing all four possible camera poses.jpeg"  align="center" alt="Undistorted" width="500"/>
@@ -46,7 +55,7 @@ The data folder contains 4 matching files named matching*.txt where * refers to 
 
 ### Usage Guidelines:
 
-1. Run
+1. To Execute the SFM pipeline run the below code:
 ```
 python3 Wrapper.py
 ```
