@@ -1,16 +1,3 @@
-""""
-RBE549: Classical and Deep Learning Approaches for Computer Vision
-Project 3: Building built in minutes: SfM and NeRF
-
-Author:
-Chinmay Kate (cskate@wpi.edu)
-Worcester Polytechnic Institute, Ms Robotics
-Following functions are somewhat Inspired by Sakshi Kakde
-
-"""
-
-
-
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
